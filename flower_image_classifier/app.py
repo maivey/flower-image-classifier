@@ -16,7 +16,13 @@ import datetime
 import json
 
 import numpy as np
-from PIL import Image
+# import Pillow
+# from Pillow 
+import Image
+# import PIL
+# from PIL import Image
+
+import Image
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
