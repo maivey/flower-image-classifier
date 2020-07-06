@@ -215,6 +215,8 @@
               <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div style= "background-color:rgb(80, 98, 116)" id = "resultsDiv" class='container'>
                     <h2 style='padding-top:10px; color:rgb(197, 192, 229)'>Results</h2>
+                    <img src = "{{ url_for('uploaded_file', filename = filename, top_k = top_k) }}">
+                    <h3>{{ myURL }}</h3>
                     <h3>Your flower is: {{ topFlowerName }}</h3>
                     <h3>Probability: {{ topProb }}%</h3>
                 </div>

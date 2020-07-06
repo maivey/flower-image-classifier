@@ -34,9 +34,11 @@ def prediction(image_path,model,top_k):
     import os
     model = 'my_model2'
     export_path = os.path.join(os.getcwd(),model)
+
     # Load the model passed into the function
     # reloaded_keras_model = tf.keras.models.load_model(model, custom_objects={'KerasLayer':hub.KerasLayer})
     reloaded_keras_model = tf.saved_model.load(export_path)
+    
     # Process the image selected
     im = Image.open(image_path)
     test_image = np.asarray(im)
