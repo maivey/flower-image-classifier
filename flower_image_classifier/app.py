@@ -108,13 +108,22 @@ def get_label_names(json_file, labels):
     '''
     Given json_file that contains the label names for the label numbers, return the correct label names from array 'label'
     '''
-    with open(json_file, 'r') as f:
-        class_names = json.load(f)
+    # with open(json_file, 'r') as f:
+    #     class_names = json.load(f)
+    # new_class_names = {}
+    # for key in class_names:
+    #     new_class_names[int(key)-1]=class_names[key]
+    # label_names = [new_class_names[int(i)] for i in labels]
+    # return label_names
+    class_names = {"21": "fire lily", "3": "canterbury bells", "45": "bolero deep blue", "1": "pink primrose", "34": "mexican aster", "27": "prince of wales feathers", "7": "moon orchid", "16": "globe-flower", "25": "grape hyacinth", "26": "corn poppy", "79": "toad lily", "39": "siam tulip", "24": "red ginger", "67": "spring crocus", "35": "alpine sea holly", "32": "garden phlox", "10": "globe thistle", "6": "tiger lily", "93": "ball moss", "33": "love in the mist", "9": "monkshood", "102": "blackberry lily", "14": "spear thistle", "19": "balloon flower", "100": "blanket flower", "13": "king protea", "49": "oxeye daisy", "15": "yellow iris", "61": "cautleya spicata", "31": "carnation", "64": "silverbush", "68": "bearded iris", "63": "black-eyed susan", "69": "windflower", "62": "japanese anemone", "20": "giant white arum lily", "38": "great masterwort", "4": "sweet pea", "86": "tree mallow", "101": "trumpet creeper", "42": "daffodil", "22": "pincushion flower", "2": "hard-leaved pocket orchid", "54": "sunflower", "66": "osteospermum", "70": "tree poppy", "85": "desert-rose", "99": "bromelia", "87": "magnolia", "5": "english marigold", "92": "bee balm", "28": "stemless gentian", "97": "mallow", "57": "gaura", "40": "lenten rose", "47": "marigold", "59": "orange dahlia", "48": "buttercup", "55": "pelargonium", "36": "ruby-lipped cattleya", "91": "hippeastrum", "29": "artichoke", "71": "gazania", "90": "canna lily", "18": "peruvian lily", "98": "mexican petunia", "8": "bird of paradise", "30": "sweet william", "17": "purple coneflower", "52": "wild pansy", "84": "columbine", "12": "colt's foot", "11": "snapdragon", "96": "camellia", "23": "fritillary", "50": "common dandelion", "44": "poinsettia", "53": "primula", "72": "azalea", "65": "californian poppy", "80": "anthurium", "76": "morning glory", "37": "cape flower", "56": "bishop of llandaff", "60": "pink-yellow dahlia", "82": "clematis", "58": "geranium", "75": "thorn apple", "41": "barbeton daisy", "95": "bougainvillea", "43": "sword lily", "83": "hibiscus", "78": "lotus lotus", "88": "cyclamen", "94": "foxglove", "81": "frangipani", "74": "rose", "89": "watercress", "73": "water lily", "46": "wallflower", "77": "passion flower", "51": "petunia"}
     new_class_names = {}
     for key in class_names:
+    #     print(key)
         new_class_names[int(key)-1]=class_names[key]
+    new_class_names
     label_names = [new_class_names[int(i)] for i in labels]
     return label_names
+
 # **** End functions from predict.py  **** 
 
 
@@ -175,8 +184,8 @@ def upload_file():
                 my_file_path_ext = url_for('uploaded_file',filename=filename, top_k = top_k)
                 top_k = int(top_k)
                 my_file_path = str(request.url_root)+ (str(my_file_path_ext)[1:])
-                probs, classes = prediction(my_file_path, 'my_model2', top_k)
-                # Print the probabilities and class numbers to the console
+                probs, classes = prediction(my_file_path , 'my_model2', top_k)
+                # # Print the probabilities and class numbers to the console
                 print(f'Proabilities: {probs}')
                 print(probs[0])
                 print(f'Label Numbers: {classes}')
@@ -193,7 +202,7 @@ def upload_file():
                                             probs = probs,
                                             classes=classes,
                                             labelNames=label_names,
-                                            # temp=temp,
+                                            temp=temp,
                                             topFlowerName = top_flower_name,
                                             topProb = top_prob,
                                     filename=filename,
