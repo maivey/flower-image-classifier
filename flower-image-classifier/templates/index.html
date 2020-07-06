@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Flower Classifier - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css"> -->
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="static/css/styles.css">
+</head>
+<body>
+<div class="wrapper">
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a style='color:white' class="navbar-brand" href="/">Flower Classifier
+          <img class="nav-ufo">
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div id= "myHeader">
+    <div class="hero text-center">    
+      <h1>Flower Image Classifier</h1>
+  
+    </div>
+</div>
+<div class="container">
+    <div class="row margin-top-50">
+      <div id='myMainFilters' class="col-md-12 col-lg-12">
+        <aside class="filters">
+          <div class="panel panel-default">
+            <div class="panel-heading"><h1>Classify Your Flower!</h1></div>
+            <div class="panel-body">
+                <form method='POST' enctype=multipart/form-data>
+                    <div class="form-group">
+                    {% if noFile %}
+                            <ul class="list-group" id="myFilters">
+                                <li class="filter list-group-item">
+                                    <h3>Upload a JPG photo of your flower</h3><br>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <!-- <span class="input-group-text" id="inputGroupFileAddon01">Upload</span> -->
+                                        </div>
+                                        <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                            aria-describedby="inputGroupFileAddon01" name=file>
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                        </div>
+                                        <br>
+                                        
+                                    </div>
+                                    <br>
+                                    <div class='row'>
+                                        <div class='col-sm-12 col-md-12 col-lg-12'>
+                                        <p style='font-weight:bold; color:rgb(240, 142, 142)'>Please upload a photo in JPG format.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <br>
+                            <ul class="list-group" id="myFilters">
+                                <li class="filter list-group-item">
+                                <label for="month_day"><h3>How many flower probabilities would you like returned?</h3></label>
+                                <input name = "month_day" class="form-control" id="city" type="text" placeholder="1">
+                                
+                                </li>
+                            </ul>
+                            <br>
+                            <input id="filter-btn" class='btn btn-secondary' type=submit value=Upload>
+
+                        
+                
+                    {% elif noSelectedFile %}
+                            <ul class="list-group" id="myFilters">
+                                <li class="filter list-group-item">
+                                    <h3>Upload a JPG photo of your flower</h3><br>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <!-- <span class="input-group-text" id="inputGroupFileAddon01">Upload</span> -->
+                                        </div>
+                                        <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                            aria-describedby="inputGroupFileAddon01" name=file>
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                    <br>
+                                    <div class='row'>
+                                        <!-- <div class='col-sm-2 col-md-2 col-lg-2'>
+                                        <p style='color:rgb(216, 76, 76)'> </p>
+                                        </div> -->
+                                        <div class='col-sm-12 col-md-12 col-lg-12'>
+                                        <p style='font-weight:bold; color:rgb(240, 142, 142)'>Please upload a photo in JPG format.</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <br>
+                            <ul class="list-group" id="myFilters">
+                                <li class="filter list-group-item">
+                                <label for="month_day"><h3>How many flower probabilities would you like returned?</h3></label>
+                                <input name = "month_day" class="form-control" id="city" type="text" placeholder="1">
+                                
+                                </li>
+                            </ul>
+                            <br>
+                            <input id="filter-btn" class='btn btn-secondary' type=submit value=Upload>
+                        
+                
+
+
+                    {% elif topKError %}
+                <!-- <form method='POST' enctype=multipart/form-data>
+                        <div class="form-group"> -->
+                            <ul class="list-group" id="myFilters">
+                                <li class="filter list-group-item">
+                                    <h3>Upload a JPG photo of your flower</h3><br>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <!-- <span class="input-group-text" id="inputGroupFileAddon01">Upload</span> -->
+                                        </div>
+                                        <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                            aria-describedby="inputGroupFileAddon01" name=file>
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                        </div>
+                                    </div>
+                                </li>
+                              </ul>
+                            <br>
+                            <ul class="list-group" id="myFilters">
+                                <li class="filter list-group-item">
+                                <label for="month_day"><h3>How many flower probabilities would you like returned?</h3></label>
+                                <input name = "month_day" class="form-control" id="city" type="text" placeholder="1">
+                                <div class='row'>
+                                    <div class='col-sm-12 col-md-12 col-lg-12'>
+                                      <p style='font-weight:bold; color:rgb(240, 142, 142)'>Please enter a valid integer.</p>
+                                    </div>
+                                  </div>
+                                </li>
+                            </ul>
+                            <br>
+                            <input id="filter-btn" class='btn btn-secondary' type=submit value=Upload>
+
+                        <!-- </div> -->
+                        <!-- <input id="filter-btn" class='btn btn-secondary' type=submit value=Upload> -->
+                                    
+                        <!-- </form> -->
+                    <!-- </div> -->
+                      <!-- <input id="filter-btn" class='btn btn-secondary' type=submit value=Upload> -->
+                      
+                <!-- </form> -->
+                    {% else %}
+                    <!-- <form method='POST' enctype=multipart/form-data>
+                        <div class="form-group"> -->
+                            <ul class="list-group" id="myFilters">
+                                <li class="filter list-group-item">
+                                    <h3>Upload a JPG photo of your flower</h3><br>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <!-- <span class="input-group-text" id="inputGroupFileAddon01">Upload</span> -->
+                                        </div>
+                                        <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                            aria-describedby="inputGroupFileAddon01" name=file>
+                                        <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <br>
+                            <ul class="list-group" id="myFilters">
+                                <li class="filter list-group-item">
+                                <label for="month_day"><h3>How many flower probabilities would you like returned?</h3></label>
+                                <input name = "month_day" class="form-control" id="city" type="text" placeholder="1">
+                                
+                                </li>
+                            </ul>
+                        <!-- </div> -->
+                        <br>
+                        <input id="filter-btn" class='btn btn-secondary' type=submit value=Upload>
+                                
+                    <!-- </form> -->
+                    
+
+                    {% endif %}
+        </div>
+        <!-- <input id="filter-btn" class='btn btn-secondary' type=submit value=Upload> -->
+                    
+        </form>
+              
+            </div>
+          </div>
+        </aside>
+        
+      </div>
+      </div>
+      <!-- </div> -->
+      {% if temp %}
+      <br>
+      <br>
+      <div style= "background-color:rgb(80, 98, 116)" class='container container-fluid'>
+          <div class='row'>
+              <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div style= "background-color:rgb(80, 98, 116)" id = "resultsDiv" class='container'>
+                    <h2 style='padding-top:10px; color:rgb(197, 192, 229)'>Results</h2>
+                    <h3>Your flower is: {{ topFlowerName }}</h3>
+                    <h3>Probability: {{ topProb }}%</h3>
+                </div>
+              </div>
+          </div>
+          <hr class='small-hr'>
+                <div class='row'>
+                    <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div style= "background-color:rgb(80, 98, 116)" id = "resultsDiv" class='container'>
+                            <br>
+                            <h2 style='color:rgb(197, 192, 229)'>All classes and corresponsing probabilities: </h2>
+                            <div style= "background-color:rgb(80, 98, 116)" style="border:none;" id="table-area" class="table-responsive">
+                                <table id="ufo-table" class="table table-striped">
+                                <thead>
+                                    <tr class = "myTable">
+                                    <th style='color:white' class="table-head">Flower Name</th>
+                                    <th style='color:white' class="table-head">Probability (%)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id = "table-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <hr class='small-hr'>
+                <div class='row'>
+                    <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h2 style='color:rgb(197, 192, 229)'>Visualization</h2>
+
+                        <div id="myPlot"></div>
+                    </div>
+                </div>
+          <br>
+      </div>
+ 
+        <div style="visibility:hidden" class='container'>    
+                <h2 id="probs">{{ probs }}</h2>
+                <h2 id="classes">{{ classes }}</h2>
+                <h2 id="labelNames">{{ labelNames }}</h2>
+            </div>
+    {% endif %}
+    {% if onlyOneK %}
+      <br>
+      <br>
+      <div style = "background-color: rgb(61, 77, 94)"class='container container-fluid'>
+          <div class='row'>
+              <div class=" col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div style= "background-color:rgb(80, 98, 116)" id = "resultsDiv" class='container'>
+                    <h2 style='padding-top:10px; color:rgb(197, 192, 229)'>Results</h2>
+                    <h3>Your flower is: {{ topFlowerName }}</h3>
+                    <h3>Probability: {{ topProb }}%</h3>
+                </div>
+              </div>
+          </div>
+          <br>
+      </div>
+ 
+        <div style="visibility:hidden" class='container'>    
+                <h2 id="probs">{{ probs }}</h2>
+                <h2 id="classes">{{ classes }}</h2>
+                <h2 id="labelNames">{{ labelNames }}</h2>
+            </div>
+    {% endif %}
+    <!-- <title>Upload new File</title> -->
+    <!-- <h1>Upload new File</h1>
+    <form method=post enctype=multipart/form-data>
+      <input type=file name=file>
+      <input type=submit value=Upload>
+    </form> -->
+    </div>
+    <footer class="footer">
+        <div class="container">
+          <div class="row">
+              <div style = "text-align: center" class="col-sm-12 col-md-12">
+                <h5>Want to contribute?</h5>
+                <p class="text-center"><a href="https://github.com/maivey/explore-bikeshare-data">Join the Github!</a></p>
+  
+                      <!-- <ul>
+                          <li class="text-center"><a href="https://github.com/maivey/explore-bikeshare-data">Join the Github!</a></li>
+                      </ul> -->
+                    <br>
+                  </div>
+                </div>
+            </div>
+        <span class="bottom">Flower Image Classifier</span>
+      </footer>
+      </div>
+
+      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+      <script>
+        $('#inputGroupFile01').on('change',function(){
+            //get the file name
+            var fileName = $(this).val();
+            console.log(fileName.slice(12,))
+            //replace the "Choose a file" label
+            $(this).next('.custom-file-label').html(fileName.slice(12,));
+        })
+    </script>
+      <!-- <script src="static/js/app.js"></script> -->
+
+    </body>
+
+
+<!-- <script src="static/js/app.js"></script> -->
+
+</html>
