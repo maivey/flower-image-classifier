@@ -1,0 +1,1 @@
+web: gunicorn flower_image_classifier.app:app
